@@ -19,7 +19,7 @@ const EXPLORER = "https://celoscan.io";
 const JOB_DESCRIPTION =
   "Write a one-line summary of the Celo Agents Open for Business hackathon brief";
 const BOUNTY = ethers.parseEther("0.05"); // 0.05 CELO for the job
-const WORKER_GAS_FUND = ethers.parseEther("0.05"); // CELO so the worker can submit (Celo fees ran ~202 gwei at deploy time, so 0.01 was not enough for a ~150k-gas submit)
+const WORKER_GAS_FUND = ethers.parseEther("0.1"); // CELO so the worker can submit (the submit costs ~0.038 CELO at the ~203 gwei fee the node charges, but the node's intrinsic-cost check uses an inflated ~381k-gas estimate, so 0.05 was not enough)
 const RESULT =
   "Celo's Agents Open for Business hackathon asks agents to do a real job for a person or business on Celo mainnet and pay for what that job needs, by Dec 7 2026.";
 

@@ -45,9 +45,9 @@ node scripts/agent.mjs      # run the full job loop live: create → deliver →
 ```
 
 `deployer.key` holds the deployer private key (mode 600, never committed).
-The agent script creates a fresh worker wallet, funds it with 0.05 CELO for gas,
+The agent script creates a fresh worker wallet, funds it with 0.1 CELO for gas (0.05 + a 0.05 top-up — the node's fee estimate is inflated, so 0.05 alone was not enough),
 posts the job, the worker submits the result, the agent verifies it and pays.
-Total spend for the whole live run is well under 0.1 CELO.
+Total spend for the whole live run was ~0.51 CELO (0.402 gas + 0.05 bounty + 0.1 worker funding, of which ~0.06 remains in the worker wallet).
 
 ## Project layout
 
