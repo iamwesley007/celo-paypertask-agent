@@ -1,0 +1,42 @@
+{
+  "network": "celo",
+  "chainId": 42220,
+  "contract": "0x92bf7D34ea98E698461C7786f68787f8858BE3B6",
+  "agent": "0x8fD6d6FCBf95c0f4042a3B8DDC352937950D5CD3",
+  "worker": "0x561022406387B6f6903B87088910d96230F012E1",
+  "attributionCodes": [
+    "celo_321f7b9760c9",
+    "celo_06dad60c3e09"
+  ],
+  "attributionSuffix": "0x63656c6f5f3332316637623937363063392c63656c6f5f303664616436306333653039230080218021802180218021802180218021",
+  "jobId": 2,
+  "startedAt": "2026-11-21T17:27:00Z",
+  "steps": [
+    {
+      "name": "create-job",
+      "tx": "0x08f0254db3804c3ab32c8b4be962b36d73d6e993b318595dcb0c63708c2bc613",
+      "gasUsed": "195422",
+      "costCelo": "0.039572955"
+    },
+    {
+      "name": "submit-result",
+      "tx": "0x5487e9efb72e5d208b125ea3a2a65c8c092472dae3d160f27b15f5313d274128",
+      "gasUsed": "212675",
+      "costCelo": "0.0430666875"
+    },
+    {
+      "name": "approve-and-pay",
+      "tx": "0xd7f16e21977320ee867e77c5ecfaf03a58f53d5aa043ee0fd4d4c465d807a66c",
+      "gasUsed": "46225",
+      "costCelo": "0.0093605625"
+    }
+  ],
+  "finishedAt": "2026-11-21T17:27:25.059Z",
+  "totalGasCostCelo": "0.092000205",
+  "verification": {
+    "tagPresentOnAllTxs": true,
+    "workerPaidExactlyCelo": "0.05",
+    "contractBalanceCelo": "0",
+    "finalStatus": 2
+  }
+}

@@ -31,7 +31,7 @@ Bounty: 0.05 CELO — delivered and PAID. Contract balance now 0.
 - Full run record: runs/live-run-1.json in the repo
 - Tests: 12/12 passing (Hardhat)
 
-## Live proof (Celo mainnet, job #1 — TAGGED, the counted run)
+## Live proof (Celo mainnet, job #1 — TAGGED with own code only, NOT credited)
 Job: "Write a one-line summary of how PayPerTask pays a worker for a finished job."
 Bounty: 0.05 CELO — delivered and PAID, every transaction carrying the
 attribution tag `celo_321f7b9760c9` (verified in each tx's onchain input).
@@ -42,6 +42,22 @@ attribution tag `celo_321f7b9760c9` (verified in each tx's onchain input).
   balance matches exactly +0.05 CELO (0.123221482166991539 CELO after).
   Total gas 0.087142635 CELO.
 - Full run record: runs/live-run-2.json in the repo
+- NOTE: job #1 carries ONLY our own repo-derived code. Only the tag Loops
+  House assigned at registration is credited, so job #1 will NOT count
+  toward the entry's onchain activity. Job #2 (below) is the counted run.
+
+## Live proof (Celo mainnet, job #2 — MULTI-CODE, the counted run)
+Job: "Write a one-line summary of why a worker can trust PayPerTask to pay for finished work."
+Bounty: 0.05 CELO — delivered and PAID, every transaction carrying BOTH
+attribution codes `celo_321f7b9760c9` (own) and `celo_06dad60c3e09`
+(Loops-assigned) in one Schema 0 suffix (verified in each tx's onchain input).
+- Create job: https://celoscan.io/tx/0x08f0254db3804c3ab32c8b4be962b36d73d6e993b318595dcb0c63708c2bc613
+- Submit result: https://celoscan.io/tx/0x5487e9efb72e5d208b125ea3a2a65c8c092472dae3d160f27b15f5313d274128
+- Approve + pay: https://celoscan.io/tx/0xd7f16e21977320ee867e77c5ecfaf03a58f53d5aa043ee0fd4d4c465d807a66c
+- Verification (independent re-check, scripts/verify-run-3.mjs): job #2 status
+  Paid, bounty zeroed, contract balance 0, worker balance matches exactly
+  +0.05 CELO (0.130154794666991539 CELO after). Total gas 0.092000205 CELO.
+- Full run record: runs/live-run-3.json in the repo
 
 ## ERC-8004 registration (required — DONE Sat 2026-11-21)
 - Agent ID: 10086
@@ -58,15 +74,22 @@ attribution tag `celo_321f7b9760c9` (verified in each tx's onchain input).
 - Note: the deployed registry exposes no agentWallet() view; per the ERC-8004
   spec the agent wallet is initially the owner's address.
 
-## Attribution tag (required for transactions to count — DONE)
-- Code: `celo_321f7b9760c9` — derived from the GitHub repo slug
+## Attribution tags (required for transactions to count — DONE, corrected)
+- Own code: `celo_321f7b9760c9` — derived from the GitHub repo slug
   `iamwesley007/celo-paypertask-agent` via codeFromRepo (celo-org/attribution-tags).
-- Suffix: 0x63656c6f5f333231663762393736306339110080218021802180218021802180218021
-  (35 bytes, ERC-8021 Schema 0; decodes back to the code).
-- Wiring: scripts/attribution.mjs (SDK @celo/attribution-tags) appends the suffix
-  to the calldata of every transaction the agent sends (populate → append →
+- Assigned tag: `celo_06dad60c3e09` — shown on the Loops House enrollment page
+  as "your attribution tag". Per the Celo attribution docs, only the assigned
+  tag is credited: a registration hands you the tag instantly, and the
+  leaderboard counts only transactions carrying it. Already tagging with your
+  own code? Keep it and include the assigned tag as an array.
+- Wiring: scripts/attribution.mjs (SDK @celo/attribution-tags) now builds one
+  Schema 0 suffix from BOTH codes via
+  toDataSuffix(['celo_321f7b9760c9', 'celo_06dad60c3e09']) — suffix
+  0x63656c6f5f3332316637623937363063392c63656c6f5f303664616436306333653039230080218021802180218021802180218021
+  (53 bytes; decodes back to both codes, verified locally). It is appended to
+  the calldata of every transaction the agent sends (populate → append →
   re-estimate gas → send). The frontend is read-only and sends no transactions.
-  Job #1 proves it end to end (see above).
+  Job #2 proves it end to end (see above); job #1 (own code only) does not count.
 
 ## Notes
 - Self Agent ID: VERIFIED AND LINKED (Sat 2026-11-21 ~03:42 WAT). The user verified
@@ -87,5 +110,6 @@ attribution tag `celo_321f7b9760c9` (verified in each tx's onchain input).
   page (see header). Judging for this track: integration quality 30%,
   innovation/value 30%, named user + real job done 25%, real use 15%.
 - Deployer wallet 0x8fD6d6FCBf95c0f4042a3B8DDC352937950D5CD3 (private key mode 600
-  at deployer.key, never printed, never committed); balance 0.2618 CELO after
-  the ERC-8004 registration and the tagged job #1 run (incl. the 0.05 bounty).
+  at deployer.key, never printed, never committed); balance 0.1629 CELO after
+  the ERC-8004 registration, the tagged job #1 run and the multi-code job #2
+  run (incl. the 0.05 bounties).
