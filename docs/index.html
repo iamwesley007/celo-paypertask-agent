@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PayPerTask — Celo Agent Payments</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 640px; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; }
+  h1 { font-size: 1.4rem; }
+  .card { border: 1px solid #ccc; border-radius: 12px; padding: 1rem; margin: 1rem 0; }
+  .label { color: #666; font-size: .85rem; text-transform: uppercase; letter-spacing: .05em; }
+  .mono { font-family: ui-monospace, monospace; word-break: break-all; }
+  .status { display: inline-block; padding: .15rem .6rem; border-radius: 999px; background: #e6f7e6; font-weight: 600; }
+  a { color: #1a73e8; }
+</style>
+</head>
+<body>
+<h1>PayPerTask</h1>
+<p>An agent that hires a worker for a real job onchain and pays in CELO when the work is delivered. Built for the Celo <strong>Agents Open for Business</strong> hackathon — Verified Agent Payments track. Live on Celo mainnet.</p>
+
+<div class="card">
+  <div class="label">Contract</div>
+  <div class="mono" id="address">…</div>
+  <a id="contract-link" href="#" target="_blank" rel="noopener">View on CeloScan</a>
+</div>
+
+<div class="card">
+  <div class="label">Live job #0</div>
+  <p><strong>Job:</strong> <span id="description">loading…</span></p>
+  <p><strong>Bounty:</strong> <span id="bounty">…</span> CELO</p>
+  <p><strong>Agent:</strong> <span class="mono" id="agent">…</span></p>
+  <p><strong>Worker:</strong> <span class="mono" id="worker">…</span></p>
+  <p><strong>Status:</strong> <span class="status" id="status">…</span></p>
+  <p><strong>Result delivered:</strong> <span id="result">…</span></p>
+</div>
+
+<p>How it works: the agent creates a job with the CELO bounty locked in the contract → the worker submits the finished work onchain → the agent verifies it → the contract releases the bounty to the worker. If the work never comes, the agent can cancel and get the bounty back. No owner, no admin.</p>
+<p>Full code, tests and proof of the live run are in the project repository (link added at submission time).</p>
+
+<script src="config.js"></script>
+<script type="module">
+import { ethers } from "https://cdn.jsdelivr.net/npm/ethers@6.13.4/+esm";
+
+const cfg = window.PAYPERTASK_CONFIG;
+const STATUS = ["Open", "ResultSubmitted", "Paid", "Cancelled"];
+const ABI = [
+  "function jobCount() view returns (uint256)",
+  "function getJob(uint256) view returns (tuple(address agent, address worker, uint256 bounty, string description, string result, uint8 status))",
+];
+
+document.getElementById("address").textContent = cfg.address;
+document.getElementById("contract-link").href = `${cfg.explorer}/address/${cfg.address}`;
+
+try {
+  const provider = new ethers.JsonRpcProvider(cfg.rpc);
+  const contract = new ethers.Contract(cfg.address, ABI, provider);
+  const count = await contract.jobCount();
+  if (count === 0n) {
+    document.getElementById("description").textContent = "No jobs yet.";
+  } else {
+    const job = await contract.getJob(0);
+    document.getElementById("description").textContent = job.description;
+    document.getElementById("bounty").textContent = ethers.formatEther(job.bounty);
+    document.getElementById("agent").textContent = job.agent;
+    document.getElementById("worker").textContent = job.worker;
+    document.getElementById("status").textContent = STATUS[job.status];
+    document.getElementById("result").textContent = job.result || "(none yet)";
+  }
+} catch (e) {
+  document.getElementById("description").textContent = "Could not load from Celo mainnet: " + e.message;
+}
+</script>
+</body>
+</html>
