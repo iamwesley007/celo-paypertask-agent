@@ -1,0 +1,51 @@
+{
+  "network": "celo",
+  "chainId": 42220,
+  "contract": "0x92bf7D34ea98E698461C7786f68787f8858BE3B6",
+  "agent": "0x8fD6d6FCBf95c0f4042a3B8DDC352937950D5CD3",
+  "worker": "0x561022406387B6f6903B87088910d96230F012E1",
+  "deployTx": "0xb40deadcdfbbe7dd5cc607f417e29bd00e6cc67bf071b158ea1454c9ed5e036e",
+  "startedAt": "2026-11-21T00:30:36.691Z",
+  "steps": [
+    {
+      "name": "fund-worker",
+      "tx": "0x444e9bdae1ec1502853e5245a911a40cb16db4a10b34769efa851ae3e19a773c",
+      "gasUsed": "21000",
+      "costCelo": "0.0042525",
+      "amountCelo": "0.05"
+    },
+    {
+      "name": "create-job",
+      "tx": "0x532713e40a1fe6717481c5ddd79e97723e129d229a6f559f10a30a7c1f7ca1e6",
+      "gasUsed": "211566",
+      "costCelo": "0.042842115",
+      "jobId": 0,
+      "description": "Write a one-line summary of the Celo Agents Open for Business hackathon brief",
+      "bountyCelo": "0.05"
+    },
+    {
+      "name": "top-up-worker",
+      "tx": "0x31b0f450280136ef205f1edb1ab5ab54ae1e04b1d8295b71b5a4b9fc398f511f",
+      "gasUsed": "21000",
+      "costCelo": "0.004277181075636",
+      "amountCelo": "0.05"
+    },
+    {
+      "name": "submit-result",
+      "tx": "0x31d79b46f78b07bc3d1abdffff0aba9f030a9f19803be1aaf9d058b7725fb447",
+      "gasUsed": "188919",
+      "costCelo": "0.038426030333008461",
+      "result": "Celo's Agents Open for Business hackathon asks agents to do a real job for a person or business on Celo mainnet and pay for what that job needs, by Dec 7 2026."
+    },
+    {
+      "name": "approve-and-pay",
+      "tx": "0x8548244696f39f2a57600f99b31e12e513581ac8196d4054f726f67bae048c5d",
+      "gasUsed": "45377",
+      "costCelo": "0.0091888425",
+      "paidCelo": "0.05",
+      "finalStatus": 2
+    }
+  ],
+  "finishedAt": "2026-11-21T00:30:54.275Z",
+  "totalGasCostCelo": "0.098986668908644461"
+}

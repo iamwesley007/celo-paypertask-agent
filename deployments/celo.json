@@ -1,0 +1,9 @@
+{
+  "network": "celo",
+  "chainId": 42220,
+  "contract": "PayPerTask",
+  "address": "0x92bf7D34ea98E698461C7786f68787f8858BE3B6",
+  "deployTx": "0xb40deadcdfbbe7dd5cc607f417e29bd00e6cc67bf071b158ea1454c9ed5e036e",
+  "deployer": "0x8fD6d6FCBf95c0f4042a3B8DDC352937950D5CD3",
+  "deployedAt": "2026-11-21T00:29:18.680Z"
+}
