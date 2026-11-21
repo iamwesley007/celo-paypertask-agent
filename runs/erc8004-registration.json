@@ -1,0 +1,12 @@
+{
+  "registry": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
+  "agentURI": "https://raw.githubusercontent.com/iamwesley007/celo-paypertask-agent/master/agent.json",
+  "agentId": 10086,
+  "tx": "0x33b6c49a2e3572b0bdce32bec035214d8324c40e95e189c4ed3afad2037f4f4e",
+  "block": 83377448,
+  "gasUsed": "200892",
+  "costCelo": "0.04068063",
+  "owner": "0x8fD6d6FCBf95c0f4042a3B8DDC352937950D5CD3",
+  "agentWalletNote": "deployed registry has no agentWallet() view; agentWallet is metadata keyed 'agentWallet', initially the owner address per the ERC-8004 spec",
+  "registeredAt": "2026-11-21T16:23:41.192Z"
+}
